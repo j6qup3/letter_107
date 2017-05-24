@@ -6,7 +6,7 @@ $(
       type: 'POST',
       dataType: "json",
       success: function(JData) {
-          row0 = "<option selected value='請選擇單位'>請選擇單位</option>";
+          row0 = "<option selected value=''>請選擇單位</option>";
           $ ('#cls_id_qry').append(row0);
 
           for (var i = 0; i < JData.DEPT_NO.length ; i++)
@@ -33,13 +33,13 @@ $(
 
 function CRUD(oper, id) {
   id = id || '';
-  alert('IN!');
+  //alert('IN!');
   var stu_idvar,stu_namevar,stu_enamevar,cls_id,emailvar;
   stu_idvar=$ ('#stu_id').val();
   stu_namevar=$ ('#stu_name').val();
   stu_enamevar=$ ('#stu_ename').val();
-  cls_id=$ ('#stu_email').val();
-  emailvar=$ ('#cls_id_qry').val();
+  cls_id=$ ('#cls_id_qry').val();
+  emailvar=$ ('#stu_email').val();
   $('#Btable').DataTable({
       "responsive": true,
       "scrollCollapse": true,

@@ -16,7 +16,22 @@
     }
     if ($_POST['oper']==0)
     {
-      
+
+      $sql = "SELECT dept_no, dept_full_name
+              FROM stfdept
+              WHERE use_flag IS NULL";
+      $data = $db -> query_array($sql);
+
+      $dept_noToName = array();
+      $i = 0;
+      $dept_name = $data['DEPT_FULL_NAME'];
+      foreach ($data['DEPT_NO'] as $dept_no) {
+        // 查詢掛號資料
+        $dept_noToName[$dept_no] = $dept_name[$i];
+        //echo $dept_noToName[$dept_no].$dept_no.'<br>';
+        ++$i;
+      }
+
         $stu_id=$_POST["stu_id"];
         $stu_name=$_POST["stu_name"];
         $stu_ename=$_POST["stu_ename"];
@@ -24,11 +39,28 @@
         $email=$_POST["email"];
         $sql = "SELECT stu_id,stu_name,stu_ename,cls_id,stu_email
                 FROM students
-                WHERE stu_id='$stu_id'
-                OR stu_name='$stu_name'
-                OR stu_ename='$stu_ename'
-                OR stu_email='$email'";
-
+                WHERE 1=1 ";
+        if($stu_id!="")
+        {
+          $sql=$sql." AND stu_id='$stu_id'";
+        }
+        if($stu_name!="")
+        {
+          $sql=$sql." AND stu_name='$stu_name'";
+        }
+        if($stu_ename!="")
+        {
+          $sql=$sql." AND stu_ename='$stu_ename'";
+        }
+        if($cls_id!="")
+        {
+          $sql=$sql." AND substr(cls_id,2,3)='$cls_id'";
+        }
+        if($email!="")
+        {
+          $sql=$sql." AND stu_email='$email'";
+        }
+        //echo $sql;
 
         $row = $db -> query_array($sql);
         $a['data'] = "";
@@ -36,7 +68,7 @@
           $id_tmp=$row['STU_ID'][$i];
           $name_tmp=$row['STU_NAME'][$i];
           $ename_tmp=$row['STU_ENAME'][$i];
-          $cls_tmp=$row['CLS_ID'][$i];
+          $cls_tmp=$dept_noToName[substr($row['CLS_ID'][$i],1,3)];
           $email_tmp=$row['STU_EMAIL'][$i];
           $a['data'][] = array(
             $id_tmp,
