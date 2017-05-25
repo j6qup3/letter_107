@@ -23,8 +23,25 @@
       ++$i;
     }
 
-    $sql = "SELECT name, letter_no, receive_date, room_code, dept_code
-          FROM letter";
+    $isTook = @$_POST['take_or_not'];
+    $str_isTook = "";
+    switch ($isTook) {
+      case 'no':
+        $str_isTook = "WHERE take_date = '^^^^^^'";
+        break;
+      case 'yes':
+        $str_isTook = "WHERE take_date != '^^^^^^'";
+        break;
+      case 'all':
+        $str_isTook = "";
+        break;
+      default:
+        $str_isTook = "";
+        break;
+    }
+
+    $sql = "SELECT name, letter_no, receive_date, take_date, room_code, dept_code
+          FROM letter " . $str_isTook;
     $row = $db -> query_array($sql);
     $a['data'] = "";
     for($i = 0; $i < count($row['NAME']); ++$i){
