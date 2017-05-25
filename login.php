@@ -13,7 +13,7 @@ if (strlen(@$_SESSION['_ID']) >= 2)
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>國立彰化師範大學 掛號信件管理系統</title>
     <!-- Bootstrap Core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -37,7 +37,7 @@ if (strlen(@$_SESSION['_ID']) >= 2)
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">國立彰化師範大學 人事差假管理系統</h3>
+                        <h3 class="panel-title">國立彰化師範大學 掛號信件管理系統</h3>
                     </div>
                     <div class="panel-body">
                         <form id="form" role="form" method="POST">
