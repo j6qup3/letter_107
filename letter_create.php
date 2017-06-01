@@ -30,7 +30,7 @@
 								<div class="row">
 									<td class="col-xs-2 col-md-1 td1" align="center">姓名</td>
 									<td class="col-xs-2 col-md-2">
-										<input type="text" class="form-control" name="stu_name" id="stu_name" oninput = "search()" onporpertychange = "search()" style='width:auto; display: inline-block;'>
+										<input type="text" class="form-control" name="stu_name" id="stu_name" oninput = "search(1)" onporpertychange = "search(1)" style='width:auto; display: inline-block;'>
 									</td>
 									<td class="col-xs-1 col-md-1 td1" align="center">系所</td>
 									<td class="col-xs-2 col-md-2">
@@ -154,7 +154,7 @@
 	                                    					<div class="row">
 	                                    						<td class="col-xs-2 col-md-1 td1" align="center">姓名</td>
 	                                    						<td class="col-xs-2 col-md-2">
-	                                    						<input type="text" class="form-control" name="edit_stu_name" id="edit_stu_name" oninput = "search()" onporpertychange = "search()" style='width:auto; display: inline-block;'>
+	                                    						<input type="text" class="form-control" name="edit_stu_name" id="edit_stu_name" oninput = "search(1)" onporpertychange = "search(1)" style='width:auto; display: inline-block;'>
 	                                    						</td>
 	                                    						<td class="col-xs-1 col-md-1 td1" align="center">系所</td>
 	                                    						<td class="col-xs-2 col-md-2">

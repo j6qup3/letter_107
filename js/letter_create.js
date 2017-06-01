@@ -217,7 +217,7 @@ function search(op)
 {
     // $('#stu_name').change(
     // function(e){
-    if(op ==1 )
+    if(op == 1 )
     {
         if ( $('#stu_name').val() != '')
         {
@@ -342,7 +342,7 @@ function Edit(NAME, LETTER_NO, RECEIVE_DATE, DEPT_CODE, ROOM_CODE, AGENT, MARK)
     $('#edit_receive_date').datetimepicker(options2);
 
     var room_code = ROOM_CODE;
-
+    $('#edit_room_code').empty();
     if(room_code == 1)
     {
         var row = "<option value = '1' selected>進德校區</option><option value = '2'>寶山校區</option>";
