@@ -31,73 +31,73 @@
   $row = $db -> query_array($sql);
 
   $pdf = new PDF_Unicode();
-  //$pdf->SetMargins(5,5);  //設定邊界(需在第一頁建立以前)
-  $pdf->AddPage();
+  $pdf->SetMargins(5,5);  //設定邊界(需在第一頁建立以前)
+  $pdf->AddPage(); // 新的一頁
   $pdf->AddUniCNShwFont('font1','DFKaiShu-SB-Estd-BF');
   $pdf->SetFont('font1', 'B', 18);
 
   $pdf->SetFontSize(16);
-  $pdf->Cell(0,10,$title,0,1,'C');
+  // Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, int fill [, mixed link]]]]]]])
+  $pdf->Cell(0, 10, $title, 0, 1, 'C');
   $pdf->SetFontSize(10);
-  $pdf->Cell(50,10);
-  $pdf->Cell(0 , 10, "系所",0,1,'C');
-  $pdf->Cell(10, 10, "姓名",1,0,"C");
-  $pdf->Cell(40, 10, "信件號碼",1,0,"C");
-  $pdf->Cell(20, 10, "收件日期",1,0,"C");
-  $pdf->Cell(20, 10, "收件校區",1,0,"C");
-  $pdf->Cell(30, 10, "簽名",1,0,"C");
+  $pdf->Cell(30, 10); // 左邊留白
+  $pdf->Cell(30 , 10, "系所", 1, 0, 'C');
+  $pdf->Cell(20, 10, "姓名", 1, 0, "C");
+  $pdf->Cell(20, 10, "信件號碼", 1, 0, "C");
+  $pdf->Cell(25, 10, "收件日期", 1, 0, "C");
+  $pdf->Cell(20, 10, "收件校區", 1, 0, "C");
+  $pdf->Cell(20, 10, "簽名", 1, 1, "C");
 
+  $arr_width = [30, 20, 20, 25, 20, 20];
+  $w_i = 0;
   for($i = 0; $i < count($row['NAME']); ++$i){
     $name = $row['NAME'][$i];
     $letter_no = $row['LETTER_NO'][$i];
     $receive_date = $row['RECEIVE_DATE'][$i];
     $room_code = $row['ROOM_CODE'][$i];
     $dept_code = $row['DEPT_CODE'][$i];
+    $dept_name = @$dept_noToName[$dept_code];
 
     if ($room_code == 1)
       $room_code = "進德";
     elseif ($room_code == 2) {
       $room_code = "寶山";
     }
-
-    if (strlen(@$dept_noToName[$dept_code])>30 || strlen($name)>30) $height = 20;
+    if (mb_strlen($dept_name, "UTF-8") >= 8) $height = 20;
     else $height = 10;
 
-    $pdf->Cell(10,$height,$i+1,1,0,"C");
+    // 左邊留白
+    $pdf->Cell(20, $height);
+    $pdf->Cell(10, $height, $i + 1, 1, 0, "C");
 
-    $pdf->Cell(20,$height,@$dept_noToName[$dept_code],1,0,"C");
-    $pdf->Cell(20,$height,$name,1,0,"C");
-    if ($height==20)
-    	multiCell(30,$height,$letter_no,0,0,"C"); //當字串長度太長時,切成兩行顯示
+    if ($height == 20)
+      multiCell($arr_width[$w_i++], $height, $dept_name, 0, 0, "C"); //當字串長度太長時,切成兩行顯示
     else
-    	$pdf->Cell(30,$height,$letter_no,1,0,"C");
+      $pdf->Cell($arr_width[$w_i++], $height, $dept_name, 1, 0, "C");
+    $pdf->Cell($arr_width[$w_i++], $height, $name, 1, 0, "C");
+    $pdf->Cell($arr_width[$w_i++], $height, $letter_no, 1, 0, "C");
 
-    $pdf->Cell(10,$height,$receive_date,1,0,"C");
-    $pdf->Cell(15,$height,$room_code,1,0,"C");
-    $pdf->Cell(1,$height,"","L",1,"C");
-    // $a['data'][] = array(
-    //   "" . $dept_code . @$dept_noToName[$dept_code],
-    //   $name,
-    //   $letter_no,
-    //   $receive_date,
-    //   $room_code,
-    //   ""
-    // );
+    $pdf->Cell($arr_width[$w_i++], $height, $receive_date, 1, 0, "C");
+    $pdf->Cell($arr_width[$w_i++], $height, $room_code, 1, 0, "C");
+    $pdf->Cell($arr_width[$w_i++], $height, "", 1, 0, "C");
+    $pdf->Cell(1, $height, "", "L", 1, "C");
+    $w_i = 0;
   }
   $pdf->Ln();
   $pdf->Output();
 
-  //當字串長度太長時,切成兩行顯示
-  function multiCell($width,$height,$text,$border,$ln,$align){
+  // 當字串長度太長時，切成兩行顯示
+  function multiCell($width, $height, $text, $border, $ln, $align){
     global $pdf;
-    $text1=mb_substr($text,0,9,"UTF-8"); //第一行
-    $text2=mb_substr($text,9,10,"UTF-8"); //第二行
+    $len = mb_strlen($text, "UTF-8");
+    $text1 = mb_substr($text, 0, $len / 2, "UTF-8"); //第一行
+    $text2 = mb_substr($text, $len / 2, $len, "UTF-8"); //第二行
     $CurrentX = $pdf->GetX();
     $CurrentY = $pdf->GetY() ;
-    $pdf->SetXY($CurrentX,$CurrentY);
-    $pdf->Cell($width,$height/2,$text1,"T",$ln,$align);
-    $pdf->SetXY($CurrentX,$CurrentY+6);
-    $pdf->Cell($width,$height/2,$text2,0,$ln,$align);
-    $pdf->SetXY($CurrentX+$width,$CurrentY);
+    $pdf->SetXY($CurrentX, $CurrentY);
+    $pdf->Cell($width, $height / 2, $text1, "T", $ln, $align);
+    $pdf->SetXY($CurrentX, $CurrentY + 6);
+    $pdf->Cell($width, $height / 2, $text2, 0, $ln, $align);
+    $pdf->SetXY($CurrentX + $width, $CurrentY);
   }
 ?>
