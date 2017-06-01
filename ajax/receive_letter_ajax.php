@@ -17,7 +17,7 @@ switch(@$_POST['oper'])
 
 QRYDATA:
 
-$sql = "SELECT ROWNUM AS DT_RowId, name, letter_no, receive_date, take_date, agent, mark, room_code
+$sql = "SELECT 'row_' || ROWNUM AS DT_RowId, name, letter_no, receive_date, take_date, agent, mark, room_code
         FROM   letter
         WHERE  take_date='^^^^^^'
 		";

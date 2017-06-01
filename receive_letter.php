@@ -2,6 +2,12 @@
 <?php include_once("inc/navi.php"); ?>
 <?php include_once("inc/sidebar.php"); ?>
 
+<style type="text/css">
+table.dataTable tbody tr.selected {
+    background-color: #B0BED9
+}
+</style>
+
 <!-- Page Content -->
 <div id="page-wrapper">
     <div class="container-fluid">
