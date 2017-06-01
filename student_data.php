@@ -25,21 +25,17 @@
                     											           <div class="col-xs-8 col-md-4">
                                                        <input type="text" class="form-control" name="reason" id="stu_id" value="" size="25" maxlength="30" >
                     											           </div>
-                    										          </div>
-                    									         </div>
-                                      </div>
-                                      <div class='form-group'>
-                                              <div class="row">
-                    										         <div class="col-md-6">
                                                      <div class="col-xs-2 col-md-2">
-                    												            <span>中文姓名:</span>
-                    											           </div>
-                    											           <div class="col-xs-8 col-md-4">
+                                                       <span>中文姓名:</span>
+                                                    </div>
+                                                    <div class="col-xs-8 col-md-4">
                                                        <input type="text" class="form-control" name="reason" id="stu_name" value="" size="25" maxlength="30" >
-                    											           </div>
+                                                    </div>
                     										          </div>
+
                     									         </div>
                                       </div>
+
                                       <div class='form-group'>
                                               <div class="row">
                     										         <div class="col-md-6">
@@ -49,12 +45,6 @@
                     											           <div class="col-xs-8 col-md-4">
                                                        <input type="text" class="form-control" name="reason" id="stu_ename" value="" size="25" maxlength="30" >
                     											           </div>
-                    										          </div>
-                    									         </div>
-                                      </div>
-                                      <div class='form-group'>
-                                              <div class="row">
-                    										         <div class="col-md-6">
                                                      <div class="col-xs-2 col-md-2">
                     												            <span>系所:</span>
                     											           </div>
@@ -64,6 +54,7 @@
                     										          </div>
                     									         </div>
                                       </div>
+                                      
                                       <div class='form-group'>
                                               <div class="row">
                     										         <div class="col-md-6">
