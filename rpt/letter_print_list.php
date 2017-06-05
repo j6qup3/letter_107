@@ -40,15 +40,17 @@
   // Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, int fill [, mixed link]]]]]]])
   $pdf->Cell(0, 10, $title, 0, 1, 'C');
   $pdf->SetFontSize(10);
-  $pdf->Cell(30, 10); // 左邊留白
-  $pdf->Cell(30 , 10, "系所", 1, 0, 'C');
+  $pdf->Cell(25, 10); // 左邊留白
+  $pdf->Cell(10, 10, "編號", 1, 0, 'C');
+  $pdf->Cell(30, 10, "系所", 1, 0, 'C');
   $pdf->Cell(20, 10, "姓名", 1, 0, "C");
   $pdf->Cell(20, 10, "信件號碼", 1, 0, "C");
   $pdf->Cell(25, 10, "收件日期", 1, 0, "C");
   $pdf->Cell(20, 10, "收件校區", 1, 0, "C");
-  $pdf->Cell(20, 10, "簽名", 1, 1, "C");
+  $pdf->Cell(25, 10, "簽名", 1, 1, "C");
 
-  $arr_width = [30, 20, 20, 25, 20, 20];
+  // 存上方資料欄位名的寬度
+  $arr_width = [25, 10, 30, 20, 20, 25, 20, 25];
   $w_i = 0;
   for($i = 0; $i < count($row['NAME']); ++$i){
     $name = $row['NAME'][$i];
@@ -67,8 +69,9 @@
     else $height = 10;
 
     // 左邊留白
-    $pdf->Cell(20, $height);
-    $pdf->Cell(10, $height, $i + 1, 1, 0, "C");
+    $pdf->Cell($arr_width[$w_i++], $height);
+    // 資料編號
+    $pdf->Cell($arr_width[$w_i++], $height, $i + 1, 1, 0, "C");
 
     if ($height == 20)
       multiCell($arr_width[$w_i++], $height, $dept_name, 0, 0, "C"); //當字串長度太長時,切成兩行顯示
@@ -82,6 +85,18 @@
     $pdf->Cell($arr_width[$w_i++], $height, "", 1, 0, "C");
     $pdf->Cell(1, $height, "", "L", 1, "C");
     $w_i = 0;
+
+    // 若到了最後一項，沒剛好滿一頁，也得加頁碼
+    if (($i + 1) == count($row['NAME']) && ($i + 1) % 20 != 0){
+      $pdf->SetY(266); // 設定頁碼位置
+      $pdf->Cell(0, 10, $pdf->PageNo(), 0, 0, 'C'); //頁碼
+    }
+    // 設定20項一頁，否則自動換頁最後一項系所太長，下格線會跑掉
+    elseif (($i + 1) % 20 == 0){
+      $pdf->SetY(266); // 設定頁碼位置
+      $pdf->Cell(0, 10, $pdf->PageNo(), 0, 0, 'C'); //頁碼
+      $pdf->AddPage(); // 新的一頁
+    }
   }
   $pdf->Ln();
   $pdf->Output();
