@@ -27,7 +27,8 @@ $(function() {
             ]
         });
 
-    $('#take-or-not').change( // 選擇系所後
+    // 是否領取的篩選條件
+    $('#take-or-not').change(
         function(e) {
             if ($(':selected', this).val() !== '') {
                 registered_table.ajax.reload();
@@ -35,38 +36,71 @@ $(function() {
         }
     );
 
-    // $(".ttt").click(function(e){
-    //        var id = registered_table.row( this ).id();
-    //        alert(id);
-    // })
-    $.ajax({
-        url: 'ajax/search_registered_ajax.php',
-        data: {
-            oper: "codeToName",
-        },
-        type: 'POST',
-        dataType: "json",
-        success: function(JData) {
-            if (JData.error_code)
-                //toastr["error"](JData.error_message);
-                message(JData.error_message, "danger", 5000);
-            else {
-                $('#edit_dept_code').empty();
-                for (var dept_code in JData) {
-                    var str_option = "<option value='" + dept_code + "'> " + JData[dept_code] + "</option>"
-                    $('#edit_dept_code').append(str_option);
-                }
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
-        }
-    });
+    // $.ajax({
+    //     url: 'ajax/search_registered_ajax.php',
+    //     data: {
+    //         oper: "codeToName",
+    //     },
+    //     type: 'POST',
+    //     dataType: "json",
+    //     success: function(JData) {
+    //         if (JData.error_code)
+    //             //toastr["error"](JData.error_message);
+    //             message(JData.error_message, "danger", 5000);
+    //         else {
+    //             $('#edit_dept_code').empty();
+    //             for (var dept_code in JData) {
+    //                 var str_option = "<option value='" + dept_code + "'> " + JData[dept_code] + "</option>"
+    //                 $('#edit_dept_code').append(str_option);
+    //             }
+    //         }
+    //     },
+    //     error: function(xhr, ajaxOptions, thrownError) {
+    //         console.log(xhr.responseText);
+    //     }
+    // });
 });
 
 function toDate(dateStr) {
     const [year, month, day] = dateStr.split("/")
     return new Date(year, month - 1, day)
+}
+
+// 根據所填姓名，搜尋對應系所
+function search(dept_code = ""){
+
+    if ( $('#edit_stu_name').val() != ''){
+        var stu_name = $('#edit_stu_name').val();
+
+        $.ajax({
+            url: 'ajax/search_registered_ajax.php',
+            data:
+            {
+                oper: 'dept_fill',
+                stu_name: stu_name
+            },
+            type: 'POST',
+            dataType: "json",
+            success: function(JData) {
+                if (JData.error_code)
+                    toastr["error"](JData.error_message);
+                else {
+                  // 先清空上一姓名的系所資料
+                  $('#edit_dept_code').empty();
+                  for (var dept_code in JData) {
+                      var str_option = "<option value='" + dept_code + "'> " + JData[dept_code] + "</option>"
+                      $('#edit_dept_code').append(str_option);
+                  }
+                  // 最後預設成table資料上的系所
+                  $('#edit_dept_code').val(dept_code);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {console.log(xhr.responseText);alert(xhr.responseText);}
+        });
+    }
+    else {
+        $('#edit_dept_code').val("");
+    }
 }
 
 function Edit(name, letter_no, receive_date, room_code, dept_code)
@@ -123,14 +157,8 @@ function Edit(name, letter_no, receive_date, room_code, dept_code)
 
     $('#edit_stu_name').val(name);
     $('#edit_letter_no').val(letter_no);
-    $('#edit_dept_code').val(dept_code);
+    search(dept_code);
     $('#edit_receive_date').data("DateTimePicker").date(eco);
-
-    // 若系所不在提供的選項內
-    if ($('#edit_dept_code').val() == null){
-      $('#edit_dept_code').append("<option value='" + dept_code + "'> " + dept_code + "</option>");
-      $('#edit_dept_code').val(dept_code);
-    }
 
     var origin_stu_name, origin_letter_no, origin_dept_code, origin_room_code, origin_receive_date;
     origin_stu_name = name;
@@ -158,6 +186,7 @@ function Edit(name, letter_no, receive_date, room_code, dept_code)
                     },
                 }
             },
+            // 系所驗證部分因search func會有驗證bug，故改js手動驗證
             // edit_dept_code: {
             //     validators: {
             //         notEmpty: {
@@ -196,6 +225,12 @@ function Edit(name, letter_no, receive_date, room_code, dept_code)
     })
     //submit by ajax----------------------------------
     .on( 'success.form.bv' , function(e) {
+        // 似乎觸發serach function會導致就算空系所也能呈交，故手動驗證
+        if ($('#edit_dept_code').val() == null){
+            e.preventDefault();
+            alert("請選擇系所");
+            return;
+        }
         var edit_stu_name, edit_letter_no, edit_dept_name, edit_dept_code, edit_room_code, edit_receive_date;
 
         edit_stu_name = $('#edit_stu_name').val();

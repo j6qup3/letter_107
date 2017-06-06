@@ -8,19 +8,19 @@
 					WHERE use_flag IS NULL";
 	$data = $db -> query_array($sql);
 
+	// 建立系所代碼 映射 系所名稱 的array
 	$dept_noToName = array();
 	$i = 0;
 	$dept_name = $data['DEPT_FULL_NAME'];
 	foreach ($data['DEPT_NO'] as $dept_no) {
-		// 查詢掛號資料
 		$dept_noToName[$dept_no] = $dept_name[$i];
 		++$i;
 	}
 
-	if (@$_POST['oper'] == "codeToName"){
-		echo json_encode($dept_noToName);
-    exit;
-	}
+	// if (@$_POST['oper'] == "codeToName"){
+	// 	echo json_encode($dept_noToName);
+  //   exit;
+	// }
 
   if (@$_POST['oper'] == "registered"){
     $isTook = @$_POST['take_or_not'];
@@ -70,8 +70,40 @@
     echo json_encode($a);
     exit;
   }
-	elseif (@$_POST['oper'] == "update")
-	{
+	elseif(@$_POST['oper'] == "dept_fill"){
+		$stu_name = @$_POST['stu_name'];
+
+		$sql = "SELECT CLS_ID FROM students WHERE STU_NAME = '$stu_name' ";
+
+		// echo $sql;
+		// exit;
+
+		$data = $db -> query_array($sql);
+
+		if(empty($data))
+		{
+			$data = array();
+			echo json_encode($data);
+			exit;
+		}
+
+		// 根據此學生姓名所對應的系所陣列（同名可能會有多個系所結果）
+		$srh_idToName = array();
+		foreach ($data['CLS_ID'] as $cls_id) {
+			$sub_cls_id = substr($cls_id, 1, 3);
+			$cls_name = @$dept_noToName[$sub_cls_id];
+			// 根據每個ID(key)，從程式最一開始建的系所代碼映射系所名稱的陣列
+			// 去找尋對應系所名稱，並加入陣列
+			if ($cls_name !== null)
+				$srh_idToName[$sub_cls_id] = $cls_name;
+			else
+				$srh_idToName[$sub_cls_id] = $sub_cls_id; // 若如"XZ6"沒有對應的系所名稱，則對應名稱存該系所代碼
+		}
+
+		echo json_encode($srh_idToName);
+		exit;
+  }
+	elseif (@$_POST['oper'] == "update"){
 		$stu_name = $_POST["stu_name"];
 		$letter_no = $_POST["letter_no"];
 		// $dept_name = $_POST["dept_name"];

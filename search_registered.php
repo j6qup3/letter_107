@@ -80,55 +80,61 @@
               	                                    <form  class="form-horizontal"  name="letter_edit" id="letter_edit" action="" method="post">
               	                                    	<table class="table table-condensed table-hover table-bordered" id="table1">
               	                                    			<tr>
-              	                                    				<!-- <div class="form-group"> -->
-              	                                    					<div class="row">
-              	                                    						<td class="col-xs-2 col-md-1 td1" align="center">姓名</td>
-              	                                    						<td class="col-xs-2 col-md-2">
-              	                                    						  <input type="text" class="form-control" name="edit_stu_name" id="edit_stu_name" oninput = "search()" onporpertychange = "search()" style='width:auto; display: inline-block;'>
-              	                                    						</td>
-              	                                    						<td class="col-xs-1 col-md-1 td1" align="center">系所</td>
-              	                                    						<td class="col-xs-2 col-md-2">
+            	                                    					<div class="row">
+            	                                    						<td class="col-xs-2 col-md-1 td1" align="center">姓名</td>
+            	                                    						<td class="col-xs-2 col-md-2">
+                                                                <div class="form-group">
+            	                                    						    <input type="text" class="form-control" name="edit_stu_name" id="edit_stu_name" oninput="search()" onporpertychange="search()" style='width:auto; display: inline-block;'>
+                                                                </div>
+            	                                    						</td>
+            	                                    						<td class="col-xs-1 col-md-1 td1" align="center">系所</td>
+            	                                    						<td class="col-xs-2 col-md-2">
+                                                                <div class="form-group">
                                                                   <select class='form-control' id="edit_dept_code" name='edit_dept_code'>
                                                                   </select>
-              	                                    						</td>
-              	                                    					</div>
-              	                                    					<!-- </div> -->
-              	                                    				</tr>
-                                                 						<tr>
-                                                 							<div class="row">
-                                                								<td class="col-xs-2 col-md-1 td1" align="center">信件號碼</td>
-                                                 								<td class="col-xs-2 col-md-2">
-                                                 									<input type="text" class="form-control" name="edit_letter_no" id="edit_letter_no" style='width:auto; display: inline-block;'>
-                                                 								</td>
-                                                 								<td class="col-xs-1 col-md-1 td1" align="center">收件校區</td>
-                                                 								<td class="col-xs-2 col-md-2">
+                                                                </div>
+            	                                    						</td>
+            	                                    					</div>
+            	                                    				</tr>
+                                               						<tr>
+                                               							<div class="row">
+                                              								<td class="col-xs-2 col-md-1 td1" align="center">信件號碼</td>
+                                               								<td class="col-xs-2 col-md-2">
+                                                                <div class="form-group">
+                                               									  <input type="text" class="form-control" name="edit_letter_no" id="edit_letter_no" style='width:auto; display: inline-block;'>
+                                                                </div>
+                                               								</td>
+                                               								<td class="col-xs-1 col-md-1 td1" align="center">收件校區</td>
+                                               								<td class="col-xs-2 col-md-2">
+                                                                <div class="form-group">
                                                 									<select class='form-control' style='width:auto; display: inline-block;' id="edit_room_code" name='edit_room_code'>
                                                 									  <option value='1'>進德</option>
                                                                     <option value='2'>寶山</option>
                                                 									</select>
-                                                 								</td>
-                                                 							</div>
-                                                 						</tr>
-                                                  					<tr>
-                                                  						<div class="row">
-                                                  							<td class="col-md-1 td1" align="center">收件日期</td>
-                                                  							<td class="col-md-1">
-                                                  								<div class='form-group'>
-                                                  									<div class="row">
-                                                  										<div class="col-md-4">
-                                                  											<input type='text' class="form-control" id='edit_receive_date' name="edit_receive_date" readonly="true" style='width:auto; display: inline-block;'>
-                                                  										</div>
-                                                  									</div>
-                                                  								</div>
-                                                  							</td>
-                                                  						</div>
-                                                  					</tr>
-              	                                    				<tr>
-              	                                    					<td colspan="4" align="center">
-              	                                    						<button type="submit" class="btn btn-primary" name="save" >儲存</button>
-              	                                    						<!-- onclick='timesum();' -->
-              	                                    					</td>
-              	                                    				</tr>
+                                                                </div>
+                                               								</td>
+                                               							</div>
+                                               						</tr>
+                                                					<tr>
+                                                						<div class="row">
+                                                							<td class="col-md-1 td1" align="center">收件日期</td>
+                                                							<td class="col-md-1">
+                                                								<div class='form-group'>
+                                                									<div class="row">
+                                                										<div class="col-md-4">
+                                                											<input type='text' class="form-control" id='edit_receive_date' name="edit_receive_date" readonly="true" style='width:auto; display: inline-block;'>
+                                                										</div>
+                                                									</div>
+                                                								</div>
+                                                							</td>
+                                                						</div>
+                                                					</tr>
+            	                                    				<tr>
+            	                                    					<td colspan="4" align="center">
+            	                                    						<button type="submit" class="btn btn-primary" name="save" >儲存</button>
+            	                                    						<!-- onclick='timesum();' -->
+            	                                    					</td>
+            	                                    				</tr>
               	                                    	</table>
               	                                    </form>
               	                                </div>
