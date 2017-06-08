@@ -26,7 +26,6 @@
 				<form  class="form-horizontal"  name="letter_new" id="letter_new" action="<?=$_SERVER['PHP_SELF'] ?>" method="post"   >
 				<table class="table table-bordered" id="table1">
 						<tr>
-							<!-- <div class="form-group"> -->
 								<div class="row">
 									<td class="col-xs-2 col-md-1 td1" align="center">姓名</td>
 									<td class="col-xs-2 col-md-2">
@@ -38,7 +37,6 @@
 										<input type="text" class="form-control" name="dept_name" id="dept_name" style='width:auto; display: inline-block;'>
 									</td>
 								</div>
-							<!-- </div> -->
 						</tr>
 
 						<tr>
@@ -82,12 +80,10 @@
 
 					<tr>
 						<td colspan="4" align="center">
-							<button type="submit" class="btn btn-primary" name="store" >送出計算</button>
-							<!-- onclick='timesum();' -->
+							<button type="submit" class="btn btn-primary" name="store" >新增</button>
 						</td>
 					</tr>
 
-					<!-- </thead> -->
 
 				</table>
 
@@ -140,9 +136,6 @@
 	                    <h4 class="modal-title">資料修改</h4>
 	                </div>
 	                <div class="modal-body">
-	                    <!-- <div align="center" id="loadingIMG">
-	                        <img src="images/loading.gif">
-	                    </div> -->
 	                    <div id="data">
 	                        <div class="panel panel-primary">
 	                            <div class="panel-heading"></div>
@@ -150,7 +143,6 @@
 	                                    <form  class="form-horizontal"  name="letter_edit" id="letter_edit" action="" method="post"   >
 	                                    	<table class="table table-bordered" id="table1">
 	                                    			<tr>
-	                                    				<!-- <div class="form-group"> -->
 	                                    					<div class="row">
 	                                    						<td class="col-xs-2 col-md-1 td1" align="center">姓名</td>
 	                                    						<td class="col-xs-2 col-md-2">
@@ -162,7 +154,6 @@
 	                                    							<input type="text" class="form-control" name="edit_dept_name" id="edit_dept_name" style='width:auto; display: inline-block;'>
 	                                    						</td>
 	                                    					</div>
-	                                    					<!-- </div> -->
 	                                    				</tr>
 
                                    						<tr>
@@ -207,7 +198,6 @@
 	                                    				<tr>
 	                                    					<td colspan="4" align="center">
 	                                    						<button type="submit" class="btn btn-primary" name="save" >儲存</button>
-	                                    						<!-- onclick='timesum();' -->
 	                                    					</td>
 	                                    				</tr>
 	                                    	</table>

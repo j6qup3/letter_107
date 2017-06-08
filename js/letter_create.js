@@ -88,13 +88,6 @@ $( // 表示網頁完成後才會載入
                         },
                     }
                 },
-                // dept_name: {
-                //     validators: {
-                //         notEmpty: {
-                //             message: '請輸入系所名稱'
-                //         },
-                //     }
-                // },
                 room_code: {
                     validators: {
                         notEmpty: {
@@ -215,8 +208,6 @@ function toDate(dateStr) {
 
 function search(op)
 {
-    // $('#stu_name').change(
-    // function(e){
     if(op == 1 )
     {
         if ( $('#stu_name').val() != '')
@@ -233,9 +224,7 @@ function search(op)
                         toastr["error"](JData.error_message);
                     else
                     {
-                        // alert(JData);
-                        // alert(JData["CLS_ID"].length);
-                        // alert(JData["DEPT_FULL_NAME"].length);
+
                         $ ('#dept_code, #dept_name').val("");
                         if(JData["CLS_ID"][0] !== null && JData["DEPT_FULL_NAME"][0] !== null)
                         {
@@ -243,8 +232,6 @@ function search(op)
                             $ ('#dept_name').val(JData["DEPT_FULL_NAME"][0]);
                             $('#letter_no').focus();
                         }
-                        // else
-                        //     toastr["error"](JData);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {console.log(xhr.responseText);alert(xhr.responseText);}
@@ -273,9 +260,7 @@ function search(op)
                         toastr["error"](JData.error_message);
                     else
                     {
-                        // alert(JData);
-                        // alert(JData["CLS_ID"].length);
-                        // alert(JData["DEPT_FULL_NAME"].length);
+
                         $ ('#edit_dept_code, #edit_dept_name').val("");
                         if(JData["CLS_ID"][0] !== null && JData["DEPT_FULL_NAME"][0] !== null)
                         {
@@ -283,8 +268,7 @@ function search(op)
                             $ ('#edit_dept_name').val(JData["DEPT_FULL_NAME"][0]);
                             $('#edit_letter_no').focus();
                         }
-                        // else
-                        //     toastr["error"](JData);
+
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {console.log(xhr.responseText);alert(xhr.responseText);}
@@ -297,8 +281,6 @@ function search(op)
         }
     }
 
-    // }
-    // );
 }
 
 function Edit(NAME, LETTER_NO, RECEIVE_DATE, DEPT_CODE, ROOM_CODE, AGENT, MARK)
@@ -399,13 +381,6 @@ function Edit(NAME, LETTER_NO, RECEIVE_DATE, DEPT_CODE, ROOM_CODE, AGENT, MARK)
                     },
                 }
             },
-            // dept_name: {
-            //     validators: {
-            //         notEmpty: {
-            //             message: '請輸入系所名稱'
-            //         },
-            //     }
-            // },
             edit_room_code: {
                 validators: {
                     notEmpty: {

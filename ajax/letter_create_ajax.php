@@ -66,9 +66,6 @@
 
   		$sql = "SELECT CLS_ID FROM students WHERE STU_NAME = '$stu_name' ";
 
-  		// echo $sql;
-  		// exit;
-
   		$cls_id = $db -> query_array($sql);
 
   		if(empty($cls_id))
@@ -83,9 +80,6 @@
   		$cls_id_3 = substr($cls_id_st, 1, 3);
 
   		$sql2 = "SELECT DEPT_FULL_NAME FROM stfdept WHERE DEPT_NO = '$cls_id_3' ";
-  		//echo substr($cls_id_st, 1, 3);
-  		// echo $sql2;
-  		// exit;
 
   		$data = $db -> query_array($sql2);
 
@@ -183,17 +177,14 @@
 	  		$update = "UPDATE letter SET NAME = '$stu_name', LETTER_NO = '$letter_no', RECEIVE_DATE = '$receive_date', TAKE_DATE = '^^^^^^', DEPT_CODE = '$dept_code', MARK = '$comment', ROOM_CODE = '$room_code' WHERE NAME = '$origin_stu_name' AND LETTER_NO = '$origin_letter_no'  AND RECEIVE_DATE = '$origin_receive_date' AND DEPT_CODE = '$origin_dept_code'  AND MARK is NULL  AND ROOM_CODE = '$origin_room_code' ";
 	  	}
 
-	  	// echo json_encode($update);
-      	// exit;
 
       	$result = $db -> query_trsac($update);
-      	// echo json_encode($result);
-      	// exit;
+
       	if($result)//失敗需rollback
       	{
       	   if( !empty($result["message"]) )
       	   {
-      	      // echo json_encode($update);
+
       	      echo json_encode("更新資料失敗");
       	      exit;
       	   }
@@ -227,8 +218,6 @@
 			$delete = "DELETE FROM letter WHERE NAME = '$stu_name' AND LETTER_NO = '$letter_no' AND RECEIVE_DATE = '$receive_date' AND TAKE_DATE = '^^^^^^' AND DEPT_CODE = '$dept_code' AND MARK is NULL  AND ROOM_CODE = '$room_code' ";
 		}
 
-		// echo json_encode($delete);
-		// exit;
 
 		$result = $db -> query($delete);
 
